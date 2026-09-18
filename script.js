@@ -11,35 +11,17 @@ document.getElementById('warpButton').onclick = function() {
     window.location.href = 'https://my-other-projects.vercel.app/';
 }
 
+document.getElementById('adButton').onclick = function() {
+    window.location.href = 'https://t.me/AgnosiaVPN_bot'
+}
+
 window.addEventListener('DOMContentLoaded', function() {
   // Восстанавливаем состояние всех контейнеров
   toggleAWG15Containers();
-  toggleJunkContainer();
   replaceMobileText();
 });
 
-function toggleJunkContainer() {
-  const nojunkEnabled = document.getElementById('nojunk').checked;
-  const container2 = document.querySelector('.container2');
-  const containerColumns = document.querySelector('.container-columns');
-  
-  if (nojunkEnabled && container2 && containerColumns) {
-    container2.classList.add('hidden');
-    // Убираем grid и position из container-columns
-    containerColumns.style.display = 'block';
-    containerColumns.style.position = 'static';
-  } else if (container2 && containerColumns) {
-    container2.classList.remove('hidden');
-    // Восстанавливаем оригинальные стили
-    containerColumns.style.display = '';
-    containerColumns.style.position = '';
-  }
-}
-
-
-
 function toggleAWG15Containers() {
-  const awg15Enabled = document.getElementById('awg15').checked;
   const awg15Disabled = document.getElementById('awg15').disabled;
   const selectedOption = document.querySelector('input[name="option"]:checked').id;
   const awg15Container = document.getElementById('15awg');
@@ -49,14 +31,9 @@ function toggleAWG15Containers() {
   if (awg15Container) awg15Container.classList.add('hidden');
   if (wiresockContainer) wiresockContainer.classList.add('hidden');
   
-  // Если AWG 1.5 включен, показываем соответствующий контейнер
-  if (awg15Enabled) {
-    if (selectedOption === 'clash' || selectedOption === 'awg') {
-      if (awg15Container) awg15Container.classList.remove('hidden');
-    } else if (selectedOption === 'karing') {
-      if (wiresockContainer) wiresockContainer.classList.remove('hidden');
-    }
-  }
+  if (selectedOption === 'clash' || selectedOption === 'awg') {awg15Container.classList.remove('hidden')} 
+  else if (selectedOption === 'karing') {wiresockContainer.classList.remove('hidden')}
+  
   if (awg15Disabled) {} else {toggleNolanContainer()}
 }
 
@@ -66,30 +43,6 @@ document.querySelectorAll('input[name="option"]').forEach(radio => {
 });
 
 document.getElementById('awg15').addEventListener('change', toggleAWG15Containers);
-
-/*
-document.querySelectorAll('input[name="option"]').forEach(radio => {
-  radio.addEventListener('change', function() {
-    const musor1 = document.querySelector('.musor1');
-    const musor2 = document.querySelector('.musor2');
-    const containerColumns = document.querySelector('.container-columns');
-    const container2 = document.querySelector('.container2');
-    
-    if (this.id === 'karing') {
-      musor1.classList.add('hidden');
-      musor2.classList.remove('hidden');
-      containerColumns.classList.add('karing-active');
-      container2.classList.add('karing-active');
-	  
-    } else {
-      musor1.classList.remove('hidden');
-      musor2.classList.add('hidden');
-      containerColumns.classList.remove('karing-active');
-      container2.classList.remove('karing-active');
-    }
-  });
-});
-*/
 document.getElementById('wgFiles').addEventListener('change', function(e) {
     const files = e.target.files;
     const label = document.getElementById('fileUploadLabel');
@@ -134,20 +87,6 @@ document.querySelectorAll('.randombtn')[2].onclick = function() {
   
   convert();
 };
-
-/*
-document.querySelector('.randombtn2').onclick = function() {
-  const generateRandomPair = () => {
-    const first = getRandomInt(1, 50);
-    const second = getRandomInt(first + 1, 120);
-    return `${first}-${second}`;
-  };
-  document.getElementById('fp1').value = generateRandomPair();
-  document.getElementById('fps1').value = generateRandomPair();
-  document.getElementById('fpd1').value = generateRandomPair();
-  document.getElementById('fake3').checked = true;
-  convert()
-};*/
 
 const COUNTRY_FLAGS = {
       'JP': '🇯🇵 JP',
@@ -291,6 +230,9 @@ function convertToClashProxy(wgConfig, fileName) {
   const defaultAmnezia = generateAmneziaDefaults();
   let proxyName = peerData.name || fileName.replace('.conf', '');
   let originalName = proxyName;
+  const selectedPort = document.querySelector('input[name="wgPort"]:checked')?.value || '51820';
+  const mtuInput = document.getElementById('mtu');
+  const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
   
   if (!proxyName) {
     proxyName = `Random_${Math.random().toString(36).substr(2, 5)}`;
@@ -329,7 +271,7 @@ function convertToClashProxy(wgConfig, fileName) {
     originalName: originalName,
     type: "wireguard",
     server: peerData.endpoint.split(':')[0],
-    port: parseInt(peerData.endpoint.split(':')[1]),
+    port: selectedPort,
     ip: interfaceData.address,
 	ipv4: ipv4,
 	ipv6: ipv6,
@@ -338,7 +280,7 @@ function convertToClashProxy(wgConfig, fileName) {
     preshared_key: peerData.presharedKey, 
     allowed_ips: peerData.allowedips.split(',').map(ip => `'${ip.trim()}'`),
     udp: true,
-    mtu: 1420,
+    mtu: mtuVal,
     remote_dns_resolve: true,
     dns: dnsList,
     'amnezia-wg-option': amneziaOptions,
@@ -349,8 +291,9 @@ function convertToClashProxy(wgConfig, fileName) {
 function generateAmneziaOptionsYAML(options) {
       const nojunkEnabled = document.getElementById('nojunk').checked;
 	  const awg15Enabled = document.getElementById('awg15').checked;  
-	  let yaml = '  amnezia-wg-option:\n';
-	  if (nojunkEnabled) {} else {
+	  let yaml = `  amnezia-wg-option:
+    version: 3\n`;
+	  if (nojunkEnabled) {
       for (const [key, value] of Object.entries(options)) {
         yaml += `    ${key}: ${value}\n`;
       }}
@@ -367,6 +310,36 @@ function generateAmneziaOptionsYAML(options) {
       if (i4) yaml += `    i4: ${i4}\n`;
       if (i5) yaml += `    i5: ${i5}\n`;
 	  }
+	  
+	      // --- AWG 3.0 ---
+    const isAwg3 = document.getElementById('awg3s')?.checked;
+    const getValue = (id) => {
+        const el = document.getElementById(id);
+        return el?.value.trim() || el?.placeholder || '';
+    };
+
+    const cpa = isAwg3 ? getValue('cpaInput') : '';
+    const rkat = isAwg3 ? getValue('rkatInput') : '';
+    const rt = isAwg3 ? getValue('rtInput') : '';
+    const rat = isAwg3 ? getValue('ratInput') : '';
+    const kt = isAwg3 ? getValue('ktInput') : '';
+    const mha = isAwg3 ? getValue('mhaInput') : '';
+
+    if (isAwg3) {
+        if (cpa) yaml += `    content-padding-addition: ${cpa}\n`;
+        if (rkat) yaml += `    rekey-after-time: ${rkat}\n`;
+        if (rt) yaml += `    rekey-timeout: ${rt}\n`;
+        if (rat) yaml += `    reject-after-time: ${rat}\n`;
+        if (kt) yaml += `    keepalive-timeout: ${kt}\n`;
+        if (mha) yaml += `    max-handshake-attempts: ${mha}\n`;
+    }
+
+	        // --- AWG 3.1 ---
+const isAwg31 = document.getElementById('awg31')?.checked;
+if (isAwg31) {
+	yaml += `    disable-cookies: true\n`; 
+}
+
       return yaml;
     }
 
@@ -472,7 +445,9 @@ function generateClashYaml() {
   }
 
 
-
+const iskeepalive = document.getElementById('kepalive')?.checked;
+const keepaliveInput = document.getElementById('keepaliveInput');
+const keepaliveVal = keepaliveInput?.value.trim() || keepaliveInput?.placeholder || '25';
 
   const yamlProxies = proxyList.map(proxy => {
     let yaml = `- name: ${proxy.name}\n`;
@@ -487,7 +462,9 @@ function generateClashYaml() {
     yaml += `  public-key: ${proxy.public_key}\n`;
     yaml += `  allowed-ips: [${proxy.allowed_ips.join(', ')}]\n`;
 	if (proxy.preshared_key) {
-    yaml += `  pre-shared-key: ${proxy.preshared_key}\n`;}
+    yaml += `  pre-shared-key: ${proxy.preshared_key}\n`}
+	if (iskeepalive) {
+	yaml += `  persistent-keepalive: ${keepaliveVal}\n`}
     yaml += `  udp: ${proxy.udp}\n`;
     yaml += `  mtu: ${proxy.mtu}\n`;
     yaml += `  remote-dns-resolve: ${proxy.remote_dns_resolve}\n`;
@@ -532,68 +509,6 @@ function generateAWGYaml() {
   };
 }
 
-/* function generateKaringYaml() {
-  if (proxyList.length === 0) {
-    alert('Не удалось обработать ни один файл');
-    return;
-  }
-
-  const fakeOption = document.querySelector('input[name="fake"]:checked').id;
-  let fakePackets, fakePacketsSize, fakePacketsDelay;
-
-  switch(fakeOption) {
-    case 'fake1':
-      fakePackets = "3";
-      fakePacketsSize = "1";
-      fakePacketsDelay = "3";
-      break;
-    case 'fake2':
-      fakePackets = "1-10";
-      fakePacketsSize = "10-30";
-      fakePacketsDelay = "10-30";
-      break;
-    case 'fake3':
-      fakePackets = document.getElementById('fp1').value || "5-10";
-      fakePacketsSize = document.getElementById('fps1').value || "40-100";
-      fakePacketsDelay = document.getElementById('fpd1').value || "20-250";
-      break;
-    default:
-      fakePackets = "5-10";
-      fakePacketsSize = "40-100";
-      fakePacketsDelay = "20-250";
-  }
-
-  const outbounds = proxyList.map(proxy => ({
-    "type": "wireguard",
-    "tag": proxy.name,
-    "local_address": [`${proxy.ip}/32`],
-    "private_key": proxy.private_key,
-    "peer_public_key": proxy.public_key,
-    "mtu": proxy.mtu,
-    "fake_packets": fakePackets,
-    "fake_packets_size": fakePacketsSize,
-    "fake_packets_delay": fakePacketsDelay,
-    "fake_packets_mode": "m4",
-    "server": proxy.server,
-    "server_port": proxy.port
-  }));
-  const karingConfig = {
-    "outbounds": outbounds
-  };
-
-  const fullYaml = JSON.stringify(karingConfig, null, 2);
-  document.getElementById('yamlOutput').value = fullYaml;
-  document.getElementById('downloadBtn').classList.remove('hidden');
-  document.getElementById('copyBtn').classList.remove('hidden');
-    document.getElementById('btn-cont').classList.remove('hidden');
-  document.getElementById('downloadBtn').onclick = () => downloadYAML(fullYaml, 'karing-config.json');
-  document.getElementById('copyBtn').onclick = () => {
-    navigator.clipboard.writeText(fullYaml)
-      .then(() => alert('Конфиг скопирован в буфер обмена!'))
-      .catch(err => alert('Не удалось скопировать: ', err));
-  };
-}
-*/
 function downloadYAML(yamlContent, fileName) {
   const blob = new Blob([yamlContent], { type: 'text/yaml; charset=utf-8' });
   const url = URL.createObjectURL(blob);
@@ -637,9 +552,12 @@ function downloadAWGConfigs() {
 function generateSingleAWGConfig(proxy) {
   const amneziaOptions = proxy['amnezia-wg-option'];
   const awg15Enabled = document.getElementById('awg15').checked;
+  const awg2wEnabled = document.getElementById('awg2w').checked;
   const nojunkEnabled = document.getElementById('nojunk').checked;
   const nolanEnabled = document.getElementById('nolan').checked;
-  
+  const selectedPort = document.querySelector('input[name="wgPort"]:checked')?.value || '51820';
+  const mtuInput = document.getElementById('mtu');
+  const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
   const selectedOption = document.querySelector('input[name="option"]:checked').id;
   
   let awgConfig = '';
@@ -658,8 +576,8 @@ function generateSingleAWGConfig(proxy) {
     awgConfig += `DNS = ${proxy.dns.join(', ')}\n`;
   }
   
-  awgConfig += `MTU = ${proxy.mtu}\n`;
-  if (nojunkEnabled) {} else {
+  awgConfig += `MTU = ${mtuVal}\n`;
+  if (nojunkEnabled) {
   awgConfig += `S1 = 0\n`;
   awgConfig += `S2 = 0\n`;
   awgConfig += `Jc = ${amneziaOptions.jc}\n`;
@@ -670,38 +588,58 @@ function generateSingleAWGConfig(proxy) {
   awgConfig += `H3 = ${amneziaOptions.h3}\n`;
   awgConfig += `H4 = ${amneziaOptions.h4}\n`;
   }
-  if (awg15Enabled) {
-	  if (selectedOption === 'awg') {
-	  const i1 = document.getElementById('i1').value.trim() || '<b 0xce000000010897a297ecc34cd6dd000044d0ec2e2e1ea2991f467ace4222129b5a098823784694b4897b9986ae0b7280135fa85e196d9ad980b150122129ce2a9379531b0fd3e871ca5fdb883c369832f730e272d7b8b74f393f9f0fa43f11e510ecb2219a52984410c204cf875585340c62238e14ad04dff382f2c200e0ee22fe743b9c6b8b043121c5710ec289f471c91ee414fca8b8be8419ae8ce7ffc53837f6ade262891895f3f4cecd31bc93ac5599e18e4f01b472362b8056c3172b513051f8322d1062997ef4a383b01706598d08d48c221d30e74c7ce000cdad36b706b1bf9b0607c32ec4b3203a4ee21ab64df336212b9758280803fcab14933b0e7ee1e04a7becce3e2633f4852585c567894a5f9efe9706a151b615856647e8b7dba69ab357b3982f554549bef9256111b2d67afde0b496f16962d4957ff654232aa9e845b61463908309cfd9de0a6abf5f425f577d7e5f6440652aa8da5f73588e82e9470f3b21b27b28c649506ae1a7f5f15b876f56abc4615f49911549b9bb39dd804fde182bd2dcec0c33bad9b138ca07d4a4a1650a2c2686acea05727e2a78962a840ae428f55627516e73c83dd8893b02358e81b524b4d99fda6df52b3a8d7a5291326e7ac9d773c5b43b8444554ef5aea104a738ed650aa979674bbed38da58ac29d87c29d387d80b526065baeb073ce65f075ccb56e47533aef357dceaa8293a523c5f6f790be90e4731123d3c6152a70576e90b4ab5bc5ead01576c68ab633ff7d36dcde2a0b2c68897e1acfc4d6483aaaeb635dd63c96b2b6a7a2bfe042f6aed82e5363aa850aace12ee3b1a93f30d8ab9537df483152a5527faca21efc9981b304f11fc95336f5b9637b174c5a0659e2b22e159a9fed4b8e93047371175b1d6d9cc8ab745f3b2281537d1c75fb9451871864efa5d184c38c185fd203de206751b92620f7c369e031d2041e152040920ac2c5ab5340bfc9d0561176abf10a147287ea90758575ac6a9f5ac9f390d0d5b23ee12af583383d994e22c0cf42383834bcd3ada1b3825a0664d8f3fb678261d57601ddf94a8a68a7c273a18c08aa99c7ad8c6c42eab67718843597ec9930457359dfdfbce024afc2dcf9348579a57d8d3490b2fa99f278f1c37d87dad9b221acd575192ffae1784f8e60ec7cee4068b6b988f0433d96d6a1b1865f4e155e9fe020279f434f3bf1bd117b717b92f6cd1cc9bea7d45978bcc3f24bda631a36910110a6ec06da35f8966c9279d130347594f13e9e07514fa370754d1424c0a1545c5070ef9fb2acd14233e8a50bfc5978b5bdf8bc1714731f798d21e2004117c61f2989dd44f0cf027b27d4019e81ed4b5c31db347c4a3a4d85048d7093cf16753d7b0d15e078f5c7a5205dc2f87e330a1f716738dce1c6180e9d02869b5546f1c4d2748f8c90d9693cba4e0079297d22fd61402dea32ff0eb69ebd65a5d0b687d87e3a8b2c42b648aa723c7c7daf37abcc4bb85caea2ee8f55bec20e913b3324ab8f5c3304f820d42ad1b9f2ffc1a3af9927136b4419e1e579ab4c2ae3c776d293d397d575df181e6cae0a4ada5d67ecea171cca3288d57c7bbdaee3befe745fb7d634f70386d873b90c4d6c6596bb65af68f9e5121e67ebf0d89d3c909ceedfb32ce9575a7758ff080724e1ab5d5f43074ecb53a479af21ed03d7b6899c36631c0166f9d47e5e1d4528a5d3d3f744029c4b1c190cbfbad06f5f83f7ad0429fa9a2719c56ffe3783460e166de2d8>';
-      const i2 = document.getElementById('i2').value.trim();
-      const i3 = document.getElementById('i3').value.trim();
-      const i4 = document.getElementById('i4').value.trim();
-      const i5 = document.getElementById('i5').value.trim();
+if (awg15Enabled && selectedOption === 'awg') {
+	const i1 = document.getElementById('i1').value.trim() || '<b 0xce000000010897a297ecc34cd6dd000044d0ec2e2e1ea2991f467ace4222129b5a098823784694b4897b9986ae0b7280135fa85e196d9ad980b150122129ce2a9379531b0fd3e871ca5fdb883c369832f730e272d7b8b74f393f9f0fa43f11e510ecb2219a52984410c204cf875585340c62238e14ad04dff382f2c200e0ee22fe743b9c6b8b043121c5710ec289f471c91ee414fca8b8be8419ae8ce7ffc53837f6ade262891895f3f4cecd31bc93ac5599e18e4f01b472362b8056c3172b513051f8322d1062997ef4a383b01706598d08d48c221d30e74c7ce000cdad36b706b1bf9b0607c32ec4b3203a4ee21ab64df336212b9758280803fcab14933b0e7ee1e04a7becce3e2633f4852585c567894a5f9efe9706a151b615856647e8b7dba69ab357b3982f554549bef9256111b2d67afde0b496f16962d4957ff654232aa9e845b61463908309cfd9de0a6abf5f425f577d7e5f6440652aa8da5f73588e82e9470f3b21b27b28c649506ae1a7f5f15b876f56abc4615f49911549b9bb39dd804fde182bd2dcec0c33bad9b138ca07d4a4a1650a2c2686acea05727e2a78962a840ae428f55627516e73c83dd8893b02358e81b524b4d99fda6df52b3a8d7a5291326e7ac9d773c5b43b8444554ef5aea104a738ed650aa979674bbed38da58ac29d87c29d387d80b526065baeb073ce65f075ccb56e47533aef357dceaa8293a523c5f6f790be90e4731123d3c6152a70576e90b4ab5bc5ead01576c68ab633ff7d36dcde2a0b2c68897e1acfc4d6483aaaeb635dd63c96b2b6a7a2bfe042f6aed82e5363aa850aace12ee3b1a93f30d8ab9537df483152a5527faca21efc9981b304f11fc95336f5b9637b174c5a0659e2b22e159a9fed4b8e93047371175b1d6d9cc8ab745f3b2281537d1c75fb9451871864efa5d184c38c185fd203de206751b92620f7c369e031d2041e152040920ac2c5ab5340bfc9d0561176abf10a147287ea90758575ac6a9f5ac9f390d0d5b23ee12af583383d994e22c0cf42383834bcd3ada1b3825a0664d8f3fb678261d57601ddf94a8a68a7c273a18c08aa99c7ad8c6c42eab67718843597ec9930457359dfdfbce024afc2dcf9348579a57d8d3490b2fa99f278f1c37d87dad9b221acd575192ffae1784f8e60ec7cee4068b6b988f0433d96d6a1b1865f4e155e9fe020279f434f3bf1bd117b717b92f6cd1cc9bea7d45978bcc3f24bda631a36910110a6ec06da35f8966c9279d130347594f13e9e07514fa370754d1424c0a1545c5070ef9fb2acd14233e8a50bfc5978b5bdf8bc1714731f798d21e2004117c61f2989dd44f0cf027b27d4019e81ed4b5c31db347c4a3a4d85048d7093cf16753d7b0d15e078f5c7a5205dc2f87e330a1f716738dce1c6180e9d02869b5546f1c4d2748f8c90d9693cba4e0079297d22fd61402dea32ff0eb69ebd65a5d0b687d87e3a8b2c42b648aa723c7c7daf37abcc4bb85caea2ee8f55bec20e913b3324ab8f5c3304f820d42ad1b9f2ffc1a3af9927136b4419e1e579ab4c2ae3c776d293d397d575df181e6cae0a4ada5d67ecea171cca3288d57c7bbdaee3befe745fb7d634f70386d873b90c4d6c6596bb65af68f9e5121e67ebf0d89d3c909ceedfb32ce9575a7758ff080724e1ab5d5f43074ecb53a479af21ed03d7b6899c36631c0166f9d47e5e1d4528a5d3d3f744029c4b1c190cbfbad06f5f83f7ad0429fa9a2719c56ffe3783460e166de2d8>';
+	const i2 = document.getElementById('i2').value.trim();
+	const i3 = document.getElementById('i3').value.trim();
+	const i4 = document.getElementById('i4').value.trim();
+	const i5 = document.getElementById('i5').value.trim();
       
-      awgConfig += `I1 = ${i1}\n`;
+	awgConfig += `I1 = ${i1}\n`;
+	if (i2) awgConfig += `I2 = ${i2}\n`;
+	if (i3) awgConfig += `I3 = ${i3}\n`;
+	if (i4) awgConfig += `I4 = ${i4}\n`;
+	if (i5) awgConfig += `I5 = ${i5}\n`;
+}
 
-     if (i2) {
-        awgConfig += `I2 = ${i2}\n`;
-      }
-      if (i3) {
-        awgConfig += `I3 = ${i3}\n`;
-      }
-      if (i4) {
-        awgConfig += `I4 = ${i4}\n`;
-      }
-      if (i5) {
-        awgConfig += `I5 = ${i5}\n`;
-      }
+if (awg2wEnabled && selectedOption === 'karing') {
+    const idValue = document.getElementById('id').value.trim() || 'apteka.ru';
+    const ipValue = document.getElementById('ip').value || 'quic';
+    const ibValue = document.getElementById('ib').value || 'firefox';
 
-   } else if (selectedOption === 'karing') {
-	  const idValue = document.getElementById('id').value.trim() || 'apteka.ru';
-      const ipValue = document.getElementById('ip').value || 'quic';
-      const ibValue = document.getElementById('ib').value || 'firefox';
-	  awgConfig += `Id = ${idValue}\n`;
-      awgConfig += `Ip = ${ipValue}\n`;
-      awgConfig += `Ib = ${ibValue}\n`;
+    awgConfig += `Id = ${idValue}\n`;
+    awgConfig += `Ip = ${ipValue}\n`;
+    awgConfig += `Ib = ${ibValue}\n`;
+}
+    
+    // --- AWG 3.0 ---
+    const isAwg3 = document.getElementById('awg3s')?.checked;
+    const getValue = (id) => {
+        const el = document.getElementById(id);
+        return el?.value.trim() || el?.placeholder || '';
+    };
+
+    const cpa = isAwg3 ? getValue('cpaInput') : '';
+    const rkat = isAwg3 ? getValue('rkatInput') : '';
+    const rt = isAwg3 ? getValue('rtInput') : '';
+    const rat = isAwg3 ? getValue('ratInput') : '';
+    const kt = isAwg3 ? getValue('ktInput') : '';
+    const mha = isAwg3 ? getValue('mhaInput') : '';
+
+    if (isAwg3) {
+        if (cpa) awgConfig += `ContentPaddingAddition = ${cpa}\n`;
+        if (rkat) awgConfig += `RekeyAfterTime = ${rkat}\n`;
+        if (rt) awgConfig += `RekeyTimeout = ${rt}\n`;
+        if (rat) awgConfig += `RejectAfterTime = ${rat}\n`;
+        if (kt) awgConfig += `KeepaliveTimeout = ${kt}\n`;
+        if (mha) awgConfig += `MaxHandshakeAttempts = ${mha}\n`;
     }
-  }
+  
+      // --- AWG 3.1 ---
+const isAwg31 = document.getElementById('awg31')?.checked;
+if (isAwg31) {awgConfig += `DisableCookies = on\n`}
+
+  
   awgConfig += `\n[Peer]\n`;
   awgConfig += `PublicKey = ${proxy.public_key}\n`;
   if (proxy.preshared_key) {
@@ -711,7 +649,14 @@ function generateSingleAWGConfig(proxy) {
   } else {
     awgConfig += `AllowedIPs = ${proxy.allowed_ips.join(', ').replace(/'/g, '')}\n`;
   }
-  awgConfig += `Endpoint = ${proxy.server}:${proxy.port}\n`;
+  awgConfig += `Endpoint = ${proxy.server}:${selectedPort}\n`;
+  
+  const isKeepalive = document.getElementById('kepalive')?.checked;
+    if (isKeepalive) {
+        const pkInput = document.getElementById('keepaliveInput');
+        const pkVal = pkInput?.value.trim() || pkInput?.placeholder || '25';
+        awgConfig += `PersistentKeepalive = ${pkVal}\n`;
+	}
   
   return awgConfig;
 }
@@ -760,26 +705,25 @@ window.addEventListener('resize', replaceMobileText);
 function enableToggles() {
   const selectedOption = document.querySelector('input[name="option"]:checked').id;
   const awg15Toggle = document.getElementById('awg15');
+  const awg2wToggle = document.getElementById('awg2w');
+  const awg3Toggle = document.getElementById('awg3s');
   const nojunkToggle = document.getElementById('nojunk');
   const nolanToggle = document.getElementById('nolan');
   awg15Toggle.disabled = false;
+  awg2wToggle.disabled = false;
+  awg3Toggle.disabled = false;
   nojunkToggle.disabled = false;
   nolanToggle.disabled = false;
-  
   toggleAWG15Containers();
-  toggleJunkContainer();
 }
 
-['nolan', 'awg15', 'nojunk', 'clash', 'awg', 'karing', 'fake1', 'fake2', 'fake3', 'junk1', 'junk2', 'junk3', 'i1', 'i2', 'i3', 'i4', 'i5', 'id', 'ip', 'ib'].forEach(id => {
+['nolan', 'awg15', 'nojunk', 'clash', 'awg', 'karing', 'fake1', 'fake2', 'fake3', 'junk1', 'junk2', 'junk3', 'i1', 'i2', 'i3', 'i4', 'i5', 'id', 'ip', 'ib', 'awg2w', 'awg3s','awg31','kepalive','keepaliveInput','mtu' ].forEach(id => {
     document.getElementById(id)?.addEventListener('change', function() {
 		
         if (!this.disabled) {
-            // Если изменился awg15 или option, обновляем видимость контейнеров
-            if (id === 'awg15' || id === 'clash' || id === 'awg' || id === 'karing') {
+            // Если изменился option, обновляем видимость контейнеров
+            if ( id === 'clash' || id === 'awg' || id === 'karing') {
                 toggleAWG15Containers();
-            }
-			if (id === 'nojunk') {
-                toggleJunkContainer();
             }
             convert();
         }
@@ -787,7 +731,19 @@ function enableToggles() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Получаем все textarea с классом jc
+const awg15Input = document.getElementById('awg15');
+const awg2wInput = document.getElementById('awg2w');
+
+if (awg15Input && awg2wInput) {
+  awg15Input.addEventListener('change', () => {
+    awg2wInput.checked = awg15Input.checked;
+  });
+
+  awg2wInput.addEventListener('change', () => {
+    awg15Input.checked = awg2wInput.checked;
+  });
+}
+
 const textareas = document.querySelectorAll('.jc');
     
     textareas.forEach(textarea => {
@@ -862,4 +818,28 @@ function toggleNolanContainer() {
       nolanToggle.disabled = false;
     }
   }
+}
+
+// Случайно AWG 3.0
+function randomizeAwg3() {
+    const getRandomRange = (minLow, minHigh, maxLow, maxHigh) => {
+        const min = Math.floor(Math.random() * (minHigh - minLow + 1)) + minLow;
+        const max = Math.floor(Math.random() * (maxHigh - maxLow + 1)) + maxLow;
+        return `${min}-${max}`;
+    };
+
+    const cpa = document.getElementById('cpaInput');
+    const mha = document.getElementById('mhaInput');
+    const kt = document.getElementById('ktInput');
+    const rat = document.getElementById('ratInput');
+    const rkat = document.getElementById('rkatInput');
+    const rt = document.getElementById('rtInput');
+
+    if (cpa) cpa.value = getRandomRange(5, 49, 50, 110);
+    if (mha) mha.value = getRandomRange(5, 24, 25, 40);
+    if (kt) kt.value = getRandomRange(5, 10, 11, 25);
+    if (rat) rat.value = getRandomRange(50, 99, 100, 200);
+    if (rkat) rkat.value = getRandomRange(50, 99, 100, 150);
+    if (rt) rt.value = getRandomRange(3, 9, 10, 15);
+	convert()
 }
