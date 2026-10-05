@@ -30,8 +30,10 @@ function toggleAWG15Containers() {
   // Сначала скрываем оба контейнера
   if (awg15Container) awg15Container.classList.add('hidden');
   if (wiresockContainer) wiresockContainer.classList.add('hidden');
-  
-  if (selectedOption === 'clash' || selectedOption === 'awg') {awg15Container.classList.remove('hidden')} 
+  if (selectedOption === 'xray') {
+	
+  }
+  if (selectedOption === 'clash' || selectedOption === 'awg' || selectedOption === 'xray') {awg15Container.classList.remove('hidden')} 
   else if (selectedOption === 'karing') {wiresockContainer.classList.remove('hidden')}
   
   if (awg15Disabled) {} else {toggleNolanContainer()}
@@ -67,7 +69,7 @@ document.querySelector('.randombtn').onclick = function() {
 
 document.querySelectorAll('.randombtn')[1].onclick = function() {
   // Генерация случайных значений для I1-I5
-  const Hex = ['<b 0xce000000010897a297ecc34cd6dd000044d0ec2e2e1ea2991f467ace4222129b5a098823784694b4897b9986ae0b7280135fa85e196d9ad980b150122129ce2a9379531b0fd3e871ca5fdb883c369832f730e272d7b8b74f393f9f0fa43f11e510ecb2219a52984410c204cf875585340c62238e14ad04dff382f2c200e0ee22fe743b9c6b8b043121c5710ec289f471c91ee414fca8b8be8419ae8ce7ffc53837f6ade262891895f3f4cecd31bc93ac5599e18e4f01b472362b8056c3172b513051f8322d1062997ef4a383b01706598d08d48c221d30e74c7ce000cdad36b706b1bf9b0607c32ec4b3203a4ee21ab64df336212b9758280803fcab14933b0e7ee1e04a7becce3e2633f4852585c567894a5f9efe9706a151b615856647e8b7dba69ab357b3982f554549bef9256111b2d67afde0b496f16962d4957ff654232aa9e845b61463908309cfd9de0a6abf5f425f577d7e5f6440652aa8da5f73588e82e9470f3b21b27b28c649506ae1a7f5f15b876f56abc4615f49911549b9bb39dd804fde182bd2dcec0c33bad9b138ca07d4a4a1650a2c2686acea05727e2a78962a840ae428f55627516e73c83dd8893b02358e81b524b4d99fda6df52b3a8d7a5291326e7ac9d773c5b43b8444554ef5aea104a738ed650aa979674bbed38da58ac29d87c29d387d80b526065baeb073ce65f075ccb56e47533aef357dceaa8293a523c5f6f790be90e4731123d3c6152a70576e90b4ab5bc5ead01576c68ab633ff7d36dcde2a0b2c68897e1acfc4d6483aaaeb635dd63c96b2b6a7a2bfe042f6aed82e5363aa850aace12ee3b1a93f30d8ab9537df483152a5527faca21efc9981b304f11fc95336f5b9637b174c5a0659e2b22e159a9fed4b8e93047371175b1d6d9cc8ab745f3b2281537d1c75fb9451871864efa5d184c38c185fd203de206751b92620f7c369e031d2041e152040920ac2c5ab5340bfc9d0561176abf10a147287ea90758575ac6a9f5ac9f390d0d5b23ee12af583383d994e22c0cf42383834bcd3ada1b3825a0664d8f3fb678261d57601ddf94a8a68a7c273a18c08aa99c7ad8c6c42eab67718843597ec9930457359dfdfbce024afc2dcf9348579a57d8d3490b2fa99f278f1c37d87dad9b221acd575192ffae1784f8e60ec7cee4068b6b988f0433d96d6a1b1865f4e155e9fe020279f434f3bf1bd117b717b92f6cd1cc9bea7d45978bcc3f24bda631a36910110a6ec06da35f8966c9279d130347594f13e9e07514fa370754d1424c0a1545c5070ef9fb2acd14233e8a50bfc5978b5bdf8bc1714731f798d21e2004117c61f2989dd44f0cf027b27d4019e81ed4b5c31db347c4a3a4d85048d7093cf16753d7b0d15e078f5c7a5205dc2f87e330a1f716738dce1c6180e9d02869b5546f1c4d2748f8c90d9693cba4e0079297d22fd61402dea32ff0eb69ebd65a5d0b687d87e3a8b2c42b648aa723c7c7daf37abcc4bb85caea2ee8f55bec20e913b3324ab8f5c3304f820d42ad1b9f2ffc1a3af9927136b4419e1e579ab4c2ae3c776d293d397d575df181e6cae0a4ada5d67ecea171cca3288d57c7bbdaee3befe745fb7d634f70386d873b90c4d6c6596bb65af68f9e5121e67ebf0d89d3c909ceedfb32ce9575a7758ff080724e1ab5d5f43074ecb53a479af21ed03d7b6899c36631c0166f9d47e5e1d4528a5d3d3f744029c4b1c190cbfbad06f5f83f7ad0429fa9a2719c56ffe3783460e166de2d8>', '<b 0xc3000000010828cc76e6712c410c000044d0a2465e075ad0f01564ee338a44a2023493b8e15237b38843001050a4f4bf2a2cfb40695fe5ff42a70c0990053428d982902a32ca57e8b98909370223db26cd729039d5717f730c935603e2a1f7e452ebbeb6236f02198a9e5293322ab2895f935827f58ffe0a2ca638599a6218bc847fd5e1c801cd487cfb10d308156e7ce4c91cf522097cab6d079acc9e7ef18f231ee6ac13f7bd3d03db41dc27953d32d1aaa35932add5b567769a35fc7e3ec9175211afba7b945492b7f2e8b141c450585f09eb9c38a760b4f6fd36257830c47bd028f35ac1b00cbf6c59030d67363e28a8a2e70190a23fbcc10941537db75c01b82f8be3d0ba7fd0f9ab534a36dcefff49ecb9a63d3be1f14ab0376d4f9686fa6478816c183f07179778593821b89a035cfa92ec13c5cd2991180278ed125264fb3a512d0480a73d69218aad3477f2c741981da881a0146002435fd1f15a0c38715396ea6989b4275137f52ea5fd771e9dc0f552755062e21c996b36e97850bf70fce2f98d26837585d28219a7a30d0cc910ff04a920bb69c714c0142193f267d917aab11058f197a6a66cd752aff348d334186bf91a69843f3452b953fc732449c58dc8aa4bcac89aa661f90891da751978f17a62f7b8f847f440f7210dd05574dbd78e4feb4ac478f275f4044c7170f74221abdda3b8fc0c129ae35d3fabac349d81ba9042b4782819ea81665d06691195bd9e7abf6f0e065a092811e9ea5b113207ef06de5768ebe62e8ee94ae4beb5bc4f9996c2c70c7d620da7fedbb2b9709a45584b5ae0fdc1f746b4afc7f100bc2888611b46e2ac243e136bb100e9db3022f472aac8801e77d15960a031e3f8fea5cf8f8703bdb1357800adc802b702c547f4e5f75eb4b6e5eb9327876c77dcfb3baf696a276d6779ab337fc1aa0b03222a6acda0b04a4220f77fd04ce14f083445e55ff88260834582531d759683e1b2d8abc885664cfba1f49f9bdcf26fca845fde45a0ca08a90794cf70338f1031c5098664f10e830d5b3437c7c367c8a0faa16d81471111b616b2f710edfcab27f5f1a7a33daa20ea6e8e5dcd624c6d8f2c048543d025eb970a8eb8aa09c8b4d0be42d6426961a624e37366c21b7e6ca24d09aa3e46a03e3dfc09eafd9d213752b2ca903d11626eb672d5dc116507c6cd2e43f59a6c964937cd9d8f1e54b05f4486c780c46a5718a3baedf93a5cd9b374097bc6db16aa272b6e0a935b35c3f721e206804c45ec5b4a4dadfbb28a9bd08d4a1590f05ef21185c00f8ca250fb31fe549845d39b6ced2e64c00ad5dac27d550313ac778a981a8b5ce2290bb2d90a50717f004d66ff122a395bba9fc67d38bfbfd549389622431afd241ce7a0d755e7016ee37ada01b09e51f4f39aa3785cc162726d23ad98e1f6d1f4346bd221b7401334d89c07e1ede4aec076933ae6d39bddef5d76e7d1fe8053fb1aca8c35d61b60648c5a1487365b0ca365c1689d8fbfc2267f24cbf90474c92be350f5e664b01ef1c8538b25296d643ceed009cb5da29c0a451be67ef626237066946379385f9c79276117598cd462ac0221fe93a46034df330144f9ccfc5d8560e8df7b19849cf7d65b79f21d3f05f61496ac7da3ffaf87b14171cb7e959c3e98fdef862f7cbf9eaebae74b1c9b09d102bff1fc82e0cf32c96b4dcc5cba0d7d3555bc8a5c722965af0c0c2f0dbb24ca1cbde23cfcd39ce86ecffe102f48cf657833fe578e5439>', '<b 0xcd00000001019500004050389e9d50b54adf3d7b201298e06ddc84decc476cbaae7f5caa99df689a3d8bc8cdf4f1d328ca82147d4afbcd607f76c4ec72dcfa3831afb10b2469557a604f9bfc70d78c149fc6fbc2217d7b1ff6166e>', '<b 0xc60000000101bb000040558c2ae6e3c71616f422e6ad8eab2d0eb44a382d875408669cd7ac2f83ceb694ae427ecd53f305bb1549d724f677b91470ba751baaa08c6fbc84a15788ef55dfa8b1fe28a22219dc653dfe48687d599df52b054a074b>', '<b 0xc70000000101eb00004055988000e4d3995e7951b41d23dbb150e211e82942d2acbfc4b0596a070887a0e75c6e9e125b838da7e42a511b381741c47bb784a497a0a47327046ce4e2007d611c6c119779f0f2e340d5d6c4525a87754d7c997c09>', '<b 0xc70000000101650000404f6b94de035f849525165e329deb8bee1c814b614afc258f10b2bcb94b47d63ed696b908e2f751b48fedbe6fe1f476ee242a0603c9025d69074985363ea70f637a2662e66e35c89094595b79bd152d85>'];
+  const Hex = ['<b 0xce000000010897a297ecc34cd6dd000044d0ec2e2e1ea2991f467ace4222129b5a098823784694b4897b9986ae0b7280135fa85e196d9ad980b150122129ce2a9379531b0fd3e871ca5fdb883c369832f730e272d7b8b74f393f9f0fa43f11e510ecb2219a52984410c204cf875585340c62238e14ad04dff382f2c200e0ee22fe743b9c6b8b043121c5710ec289f471c91ee414fca8b8be8419ae8ce7ffc53837f6ade262891895f3f4cecd31bc93ac5599e18e4f01b472362b8056c3172b513051f8322d1062997ef4a383b01706598d08d48c221d30e74c7ce000cdad36b706b1bf9b0607c32ec4b3203a4ee21ab64df336212b9758280803fcab14933b0e7ee1e04a7becce3e2633f4852585c567894a5f9efe9706a151b615856647e8b7dba69ab357b3982f554549bef9256111b2d67afde0b496f16962d4957ff654232aa9e845b61463908309cfd9de0a6abf5f425f577d7e5f6440652aa8da5f73588e82e9470f3b21b27b28c649506ae1a7f5f15b876f56abc4615f49911549b9bb39dd804fde182bd2dcec0c33bad9b138ca07d4a4a1650a2c2686acea05727e2a78962a840ae428f55627516e73c83dd8893b02358e81b524b4d99fda6df52b3a8d7a5291326e7ac9d773c5b43b8444554ef5aea104a738ed650aa979674bbed38da58ac29d87c29d387d80b526065baeb073ce65f075ccb56e47533aef357dceaa8293a523c5f6f790be90e4731123d3c6152a70576e90b4ab5bc5ead01576c68ab633ff7d36dcde2a0b2c68897e1acfc4d6483aaaeb635dd63c96b2b6a7a2bfe042f6aed82e5363aa850aace12ee3b1a93f30d8ab9537df483152a5527faca21efc9981b304f11fc95336f5b9637b174c5a0659e2b22e159a9fed4b8e93047371175b1d6d9cc8ab745f3b2281537d1c75fb9451871864efa5d184c38c185fd203de206751b92620f7c369e031d2041e152040920ac2c5ab5340bfc9d0561176abf10a147287ea90758575ac6a9f5ac9f390d0d5b23ee12af583383d994e22c0cf42383834bcd3ada1b3825a0664d8f3fb678261d57601ddf94a8a68a7c273a18c08aa99c7ad8c6c42eab67718843597ec9930457359dfdfbce024afc2dcf9348579a57d8d3490b2fa99f278f1c37d87dad9b221acd575192ffae1784f8e60ec7cee4068b6b988f0433d96d6a1b1865f4e155e9fe020279f434f3bf1bd117b717b92f6cd1cc9bea7d45978bcc3f24bda631a36910110a6ec06da35f8966c9279d130347594f13e9e07514fa370754d1424c0a1545c5070ef9fb2acd14233e8a50bfc5978b5bdf8bc1714731f798d21e2004117c61f2989dd44f0cf027b27d4019e81ed4b5c31db347c4a3a4d85048d7093cf16753d7b0d15e078f5c7a5205dc2f87e330a1f716738dce1c6180e9d02869b5546f1c4d2748f8c90d9693cba4e0079297d22fd61402dea32ff0eb69ebd65a5d0b687d87e3a8b2c42b648aa723c7c7daf37abcc4bb85caea2ee8f55bec20e913b3324ab8f5c3304f820d42ad1b9f2ffc1a3af9927136b4419e1e579ab4c2ae3c776d293d397d575df181e6cae0a4ada5d67ecea171cca3288d57c7bbdaee3befe745fb7d634f70386d873b90c4d6c6596bb65af68f9e5121e67ebf0d89d3c909ceedfb32ce9575a7758ff080724e1ab5d5f43074ecb53a479af21ed03d7b6899c36631c0166f9d47e5e1d4528a5d3d3f744029c4b1c190cbfbad06f5f83f7ad0429fa9a2719c56ffe3783460e166de2d8>', '<b 0xca000000010192000040523d20151ea578688a48502d1b7d5ae46906ceb14547fec9aee98a407dab61b229ca5f6707be89c159f3cf9b73a3b8d906f7d3e307f8e39fdb0d35b23c0ffc635d285418cea8bfd98009d234e0e4f95891a7f4>', '<b 0xcd00000001019500004050389e9d50b54adf3d7b201298e06ddc84decc476cbaae7f5caa99df689a3d8bc8cdf4f1d328ca82147d4afbcd607f76c4ec72dcfa3831afb10b2469557a604f9bfc70d78c149fc6fbc2217d7b1ff6166e>', '<b 0xc400000001015c000040570b2e25e1a2fb2e1d5cf2bfdaeb0ca79c3255f6384628e6e6c22adb43440db63fa1d26ad16120d9cbdbf0dc2f7a8eb3525561b193c6b6a0ef44e8d118c3b04a3ae880c081a9b9e97321315915787938abd8b925506b830d>', '<b 0xc70000000101eb00004055988000e4d3995e7951b41d23dbb150e211e82942d2acbfc4b0596a070887a0e75c6e9e125b838da7e42a511b381741c47bb784a497a0a47327046ce4e2007d611c6c119779f0f2e340d5d6c4525a87754d7c997c09>', '<b 0xcb0000000101d6000040500195593d5d325e28e7a9d879ff474b9a1a344d76a202d92776ceaee0e7f8d933ded8bc2f49a31d19cfa2f42a8b6e056c76c4d64b4f09d870f342e0872e69f5486b4e35e32314107a3937b8d3cf14cfc8>'];
   const RandomHex = Hex[Math.floor(Math.random() * Hex.length)];
   
   document.getElementById('i1').value = RandomHex;
@@ -684,8 +686,9 @@ function convert() {
             case 'karing':
               generateAWGYaml();
               break;
-            default:
-              generateClashYaml();
+			case 'xray':
+              generateXray();
+              break;
           }
         }
       } catch (e) {
@@ -761,7 +764,7 @@ function generateAWGYaml() {
   if (proxyList.length === 0) {
     alert('Не удалось обработать ни один файл');
     return;
-  }
+}
 
   const awgConfigs = proxyList.map(proxy => generateSingleAWGConfig(proxy));
   const finalOutput = awgConfigs.join('\n\n');
@@ -772,7 +775,28 @@ function generateAWGYaml() {
   document.getElementById('copyBtn').classList.remove('hidden');
   document.getElementById('btn-cont').classList.remove('hidden');
   document.getElementById('copyBtn').onclick = () => {
-    navigator.clipboard.writeText(fullYaml)
+    navigator.clipboard.writeText(finalOutput)
+      .then(() => alert('Конфиг скопирован в буфер обмена!'))
+      .catch(err => alert('Не удалось скопировать: ', err));
+  };
+}
+
+function generateXray() {
+  if (proxyList.length === 0) {
+    alert('Не удалось обработать ни один файл');
+    return;
+}
+
+  const awgConfigs = proxyList.map(proxy => generateSingleXrayConfig(proxy));
+  const finalOutput = awgConfigs.join('\n\n');
+
+  document.getElementById('yamlOutput').value = finalOutput;
+  document.getElementById('downloadBtn').classList.remove('hidden');
+  document.getElementById('downloadBtn').onclick = downloadXrayConfigs;
+  document.getElementById('copyBtn').classList.remove('hidden');
+  document.getElementById('btn-cont').classList.remove('hidden');
+  document.getElementById('copyBtn').onclick = () => {
+    navigator.clipboard.writeText(finalOutput)
       .then(() => alert('Конфиг скопирован в буфер обмена!'))
       .catch(err => alert('Не удалось скопировать: ', err));
   };
@@ -799,6 +823,34 @@ function downloadAWGConfigs() {
     setTimeout(() => {
       const awgConfig = generateSingleAWGConfig(proxy);
       const fileName = getAWGFileName(proxy, index);
+      
+      const blob = new Blob([awgConfig], { type: 'application/x-config; charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      downloadFrame.contentDocument.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 10000);
+    }, 1000 * index);
+  });
+  setTimeout(() => {
+    document.body.removeChild(downloadFrame);
+  }, 1000 * proxyList.length + 1000);
+}
+
+function downloadXrayConfigs() {
+  if (proxyList.length === 0) return;
+  const downloadFrame = document.createElement('iframe');
+  downloadFrame.style.display = 'none';
+  document.body.appendChild(downloadFrame);
+  proxyList.forEach((proxy, index) => {
+    setTimeout(() => {
+      const awgConfig = generateSingleXrayConfig(proxy);
+      const fileName = getXrayFileName(proxy, index);
       
       const blob = new Blob([awgConfig], { type: 'application/x-config; charset=utf-8' });
       const url = URL.createObjectURL(blob);
@@ -930,31 +982,155 @@ if (isAwg31) {awgConfig += `DisableCookies = on\n`}
   return awgConfig;
 }
 
+function generateSingleXrayConfig(proxy) {
+  const amneziaOptions = proxy['amnezia-wg-option'];
+  const awg15Enabled = document.getElementById('awg15').checked;
+  const awg2wEnabled = document.getElementById('awg2w').checked;
+  const nojunkEnabled = document.getElementById('nojunk').checked;
+  const nolanEnabled = document.getElementById('nolan').checked;
+  const selectedPort = document.querySelector('input[name="wgPort"]:checked')?.value || '51820';
+  const mtuInput = document.getElementById('mtu');
+  const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
+  const selectedOption = document.querySelector('input[name="option"]:checked').id;
+  let awg1 = ''
+  if (nojunkEnabled) { awg1 = Array.from({ length: amneziaOptions.jc }, () => `,
+                    {
+                        "delay": "1-3",
+                        "packet": "${amneziaOptions.jmin}-${amneziaOptions.jmax}",
+                        "type": "rand"
+                    }`).join(''); }
+
+	let i1 = document.getElementById('i1').value.trim() || '<b 0xce000000010897a297ecc34cd6dd000044d0ec2e2e1ea2991f467ace4222129b5a098823784694b4897b9986ae0b7280135fa85e196d9ad980b150122129ce2a9379531b0fd3e871ca5fdb883c369832f730e272d7b8b74f393f9f0fa43f11e510ecb2219a52984410c204cf875585340c62238e14ad04dff382f2c200e0ee22fe743b9c6b8b043121c5710ec289f471c91ee414fca8b8be8419ae8ce7ffc53837f6ade262891895f3f4cecd31bc93ac5599e18e4f01b472362b8056c3172b513051f8322d1062997ef4a383b01706598d08d48c221d30e74c7ce000cdad36b706b1bf9b0607c32ec4b3203a4ee21ab64df336212b9758280803fcab14933b0e7ee1e04a7becce3e2633f4852585c567894a5f9efe9706a151b615856647e8b7dba69ab357b3982f554549bef9256111b2d67afde0b496f16962d4957ff654232aa9e845b61463908309cfd9de0a6abf5f425f577d7e5f6440652aa8da5f73588e82e9470f3b21b27b28c649506ae1a7f5f15b876f56abc4615f49911549b9bb39dd804fde182bd2dcec0c33bad9b138ca07d4a4a1650a2c2686acea05727e2a78962a840ae428f55627516e73c83dd8893b02358e81b524b4d99fda6df52b3a8d7a5291326e7ac9d773c5b43b8444554ef5aea104a738ed650aa979674bbed38da58ac29d87c29d387d80b526065baeb073ce65f075ccb56e47533aef357dceaa8293a523c5f6f790be90e4731123d3c6152a70576e90b4ab5bc5ead01576c68ab633ff7d36dcde2a0b2c68897e1acfc4d6483aaaeb635dd63c96b2b6a7a2bfe042f6aed82e5363aa850aace12ee3b1a93f30d8ab9537df483152a5527faca21efc9981b304f11fc95336f5b9637b174c5a0659e2b22e159a9fed4b8e93047371175b1d6d9cc8ab745f3b2281537d1c75fb9451871864efa5d184c38c185fd203de206751b92620f7c369e031d2041e152040920ac2c5ab5340bfc9d0561176abf10a147287ea90758575ac6a9f5ac9f390d0d5b23ee12af583383d994e22c0cf42383834bcd3ada1b3825a0664d8f3fb678261d57601ddf94a8a68a7c273a18c08aa99c7ad8c6c42eab67718843597ec9930457359dfdfbce024afc2dcf9348579a57d8d3490b2fa99f278f1c37d87dad9b221acd575192ffae1784f8e60ec7cee4068b6b988f0433d96d6a1b1865f4e155e9fe020279f434f3bf1bd117b717b92f6cd1cc9bea7d45978bcc3f24bda631a36910110a6ec06da35f8966c9279d130347594f13e9e07514fa370754d1424c0a1545c5070ef9fb2acd14233e8a50bfc5978b5bdf8bc1714731f798d21e2004117c61f2989dd44f0cf027b27d4019e81ed4b5c31db347c4a3a4d85048d7093cf16753d7b0d15e078f5c7a5205dc2f87e330a1f716738dce1c6180e9d02869b5546f1c4d2748f8c90d9693cba4e0079297d22fd61402dea32ff0eb69ebd65a5d0b687d87e3a8b2c42b648aa723c7c7daf37abcc4bb85caea2ee8f55bec20e913b3324ab8f5c3304f820d42ad1b9f2ffc1a3af9927136b4419e1e579ab4c2ae3c776d293d397d575df181e6cae0a4ada5d67ecea171cca3288d57c7bbdaee3befe745fb7d634f70386d873b90c4d6c6596bb65af68f9e5121e67ebf0d89d3c909ceedfb32ce9575a7758ff080724e1ab5d5f43074ecb53a479af21ed03d7b6899c36631c0166f9d47e5e1d4528a5d3d3f744029c4b1c190cbfbad06f5f83f7ad0429fa9a2719c56ffe3783460e166de2d8>';
+	const match = i1.match(/0x([0-9a-fA-F]+)/);
+	i1 = match ? match[1] : '';
+
+let preSharedKey = ''
+ if (proxy.preshared_key) {
+ preSharedKey = `\n                        "preSharedKey": "${proxy.preshared_key}",`}
+  
+  let persistentKeepalive = ''
+  const isKeepalive = document.getElementById('kepalive')?.checked;
+    if (isKeepalive) {
+        const pkInput = document.getElementById('keepaliveInput');
+        pkVal = pkInput?.value.trim() || pkInput?.placeholder || '25';
+		persistentKeepalive = `\n                        "keepAlive": ${pkVal},`;
+	}
+  
+  let awgConfig = `{
+    "dns": {
+        "servers": [
+            "${proxy.dns.join('",\n            "')}"
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls"
+                ],
+                "enabled": true
+            },
+            "tag": "socks-in"
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": 10809,
+            "protocol": "http",
+            "settings": {
+            },
+             "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls"
+                ],
+                "enabled": true
+            },
+            "tag": "http-in"
+        }
+    ],
+    "log": {
+        "loglevel": "warning"
+    },
+    "meta": null,
+    "outbounds": [
+        {
+            "protocol": "wireguard",
+            "settings": {
+                "address": [
+                    "${proxy.ip.replace(/, /g, '",\n                    "')}"
+                ],
+                "mtu": ${mtuVal},
+                "peers": [
+                    {
+                        "allowedIPs": [
+                            "${proxy.allowed_ips.join('",\n                            "').replace(/'/g, '')}"
+                        ],${preSharedKey}
+                        "endpoint": "${proxy.server}:${selectedPort}",${persistentKeepalive}
+                        "publicKey": "${proxy.public_key}"
+                    }
+                ],
+                "secretKey": "${proxy.private_key}"
+            },
+            "streamSettings": {
+                "sockopt": {
+                    "dialerProxy": "noise-out"
+                }
+            },
+            "tag": "proton"
+        },
+        {
+            "protocol": "freedom",
+            "settings": {
+                "domainStrategy": "AsIs",
+                "noises": [
+                    {
+                        "delay": "1-2",
+                        "packet": "${i1}",
+                        "type": "hex"
+                    }${awg1}
+                ]
+            },
+            "tag": "noise-out"
+        }
+    ],
+    "remarks": "${proxy.originalName.replace(/-FREE|[^a-z0-9]/gi, m => m === '-FREE' ? '' : '_')}",
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "network": "tcp,udp",
+                "outboundTag": "proton",
+                "type": "field"
+            }
+        ]
+    }
+}`;
+  
+  return awgConfig;
+}
+
+function getXrayFileName(proxy, index) {
+  if (proxy.originalName) {
+    const cleanedName = proxy.originalName.replace(/-FREE/g, '');
+    return `${cleanedName.replace(/[^a-z0-9]/gi, '_')}.json`;
+  }
+  return `${index + 1}.json`;
+}
+
 function getAWGFileName(proxy, index) {
   if (proxy.originalName) {
     const cleanedName = proxy.originalName.replace(/-FREE/g, '');
     return `${cleanedName.replace(/[^a-z0-9]/gi, '_')}.conf`;
   }
   return `config_${index + 1}.conf`;
-}
-
-function fallbackDownload(proxies) {
-  proxies.forEach((proxy, index) => {
-    const awgConfig = generateSingleAWGConfig(proxy);
-    const fileName = getAWGFileName(proxy, index);
-    
-    const blob = new Blob([awgConfig], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }, 100 * index);
-  });
 }
 
 function replaceMobileText() {
@@ -986,7 +1162,7 @@ function enableToggles() {
   toggleAWG15Containers();
 }
 
-['nolan', 'awg15', 'nojunk', 'clash', 'awg', 'karing', 'fake1', 'fake2', 'fake3', 'junk1', 'junk2', 'junk3', 'i1', 'i2', 'i3', 'i4', 'i5', 'id', 'ip', 'ib', 'awg2w', 'awg3s','awg31','kepalive','keepaliveInput','mtu' ].forEach(id => {
+['nolan', 'awg15', 'nojunk', 'clash', 'awg', 'karing', 'fake1', 'fake2', 'fake3', 'junk1', 'junk2', 'junk3', 'i1', 'i2', 'i3', 'i4', 'i5', 'id', 'ip', 'ib', 'awg2w', 'awg3s','awg31','kepalive','keepaliveInput','mtu', 'xray' ].forEach(id => {
     document.getElementById(id)?.addEventListener('change', function() {
 		
         if (!this.disabled) {
@@ -1071,22 +1247,34 @@ if (selectDomainBtn) {
 
 // NolanClash
 function toggleNolanContainer() {
-  const nolanEnabled = document.getElementById('nolan').checked;
   const selectedOption = document.querySelector('input[name="option"]:checked').id;
-  
-  // Отключаем свитч nolan при выборе clash
-  if (selectedOption === 'clash') {
-    const nolanToggle = document.getElementById('nolan');
-    if (nolanToggle) {
-      nolanToggle.disabled = true;
-      nolanToggle.checked = false;
-    }
-  } else {
-    const nolanToggle = document.getElementById('nolan');
-    if (nolanToggle) {
-      nolanToggle.disabled = false;
-    }
-  }
+  const nolanToggle = document.getElementById('nolan');
+  const awg31Toggle = document.getElementById('awg31');
+  const awg3Toggle = document.getElementById('awg3s');
+  const awg1Toggle = document.getElementById('nojunk');
+  const i2_5 = document.getElementById('i2-5');
+
+if (selectedOption === 'clash' || selectedOption === 'xray') {
+	nolanToggle.disabled = true;
+	nolanToggle.checked = false;
+} else {
+	nolanToggle.disabled = false;
+}
+if (selectedOption === 'xray') {
+	awg31Toggle.disabled = true;
+	awg31Toggle.checked = false;
+	awg3Toggle.disabled = true;
+	awg3Toggle.checked = false;
+    i2_5.style.filter = 'grayscale(100%)';
+    i2_5.style.opacity = '0.5';
+    i2_5.style.pointerEvents = 'none';
+} else {
+	awg31Toggle.disabled = false;
+	awg3Toggle.disabled = false;
+	i2_5.style.filter = '';
+    i2_5.style.opacity = '';
+    i2_5.style.pointerEvents = '';
+}
 }
 
 // Случайно AWG 3.0
