@@ -21,6 +21,25 @@ window.addEventListener('DOMContentLoaded', function() {
   replaceMobileText();
 });
 
+document.querySelectorAll('input[name="option"]').forEach(radio => {
+    radio.addEventListener('change', toggleClashSettings);
+});
+
+function toggleClashSettings() {	
+    const isXray = document.getElementById('xray')?.checked;
+	if (isXray) {
+		const jcInput = document.getElementById('jc1');
+		const jminInput = document.getElementById('jmin1');
+		const jmaxInput = document.getElementById('jmax1');
+		const radio = document.getElementById('junk3');
+
+		radio.checked = true;
+		jcInput.value = 5
+		jminInput.value = 40
+		jmaxInput.value = 70
+	}
+}
+
 function toggleAWG15Containers() {
   const awg15Disabled = document.getElementById('awg15').disabled;
   const selectedOption = document.querySelector('input[name="option"]:checked').id;
@@ -35,6 +54,7 @@ function toggleAWG15Containers() {
   }
   if (selectedOption === 'clash' || selectedOption === 'awg' || selectedOption === 'xray') {awg15Container.classList.remove('hidden')} 
   else if (selectedOption === 'karing') {wiresockContainer.classList.remove('hidden')}
+  
   
   if (awg15Disabled) {} else {toggleNolanContainer()}
 }
@@ -1162,7 +1182,7 @@ function enableToggles() {
   toggleAWG15Containers();
 }
 
-['nolan', 'awg15', 'nojunk', 'clash', 'awg', 'karing', 'fake1', 'fake2', 'fake3', 'junk1', 'junk2', 'junk3', 'i1', 'i2', 'i3', 'i4', 'i5', 'id', 'ip', 'ib', 'awg2w', 'awg3s','awg31','kepalive','keepaliveInput','mtu', 'xray' ].forEach(id => {
+['nolan', 'awg15', 'nojunk', 'clash', 'awg', 'karing', 'fake1', 'fake2', 'fake3', 'junk1', 'junk2', 'junk3', 'i1', 'i2', 'i3', 'i4', 'i5', 'id', 'ip', 'ib', 'awg2w', 'awg3s','awg31','kepalive','keepaliveInput','mtu', 'xray', 'jc1', 'jmin1', 'jmax1' ].forEach(id => {
     document.getElementById(id)?.addEventListener('change', function() {
 		
         if (!this.disabled) {
@@ -1254,13 +1274,17 @@ function toggleNolanContainer() {
   const awg1Toggle = document.getElementById('nojunk');
   const i2_5 = document.getElementById('i2-5');
 
+
 if (selectedOption === 'clash' || selectedOption === 'xray') {
 	nolanToggle.disabled = true;
 	nolanToggle.checked = false;
 } else {
 	nolanToggle.disabled = false;
 }
+
 if (selectedOption === 'xray') {
+
+	
 	awg31Toggle.disabled = true;
 	awg31Toggle.checked = false;
 	awg3Toggle.disabled = true;
